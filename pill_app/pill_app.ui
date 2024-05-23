@@ -1,28 +1,83 @@
-<UI version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>pill_appClass</class>
- <widget class="QMainWindow" name="pill_appClass" >
-  <property name="objectName" >
-   <string notr="true">pill_appClass</string>
-  </property>
-  <property name="geometry" >
+ <widget class="QMainWindow" name="pill_appClass">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>600</width>
+    <width>832</width>
     <height>400</height>
    </rect>
   </property>
-  <property name="windowTitle" >
-   <string>pill_app</string>
-  </property>  <widget class="QMenuBar" name="menuBar" />
-  <widget class="QToolBar" name="mainToolBar" />
-  <widget class="QWidget" name="centralWidget" />
-  <widget class="QStatusBar" name="statusBar" />
+  <property name="windowTitle">
+   <string>Pills</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QPushButton" name="add_pill_push_button">
+        <property name="text">
+         <string>add pill</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="remove_pill_push_button">
+        <property name="text">
+         <string>remove pill</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="remaining_quantity_push_button">
+        <property name="text">
+         <string>remaining quantity</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="calendar_push_button">
+        <property name="text">
+         <string>calendar</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>832</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QToolBar" name="mainToolBar">
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
  </widget>
- <layoutDefault spacing="6" margin="11" />
- <pixmapfunction></pixmapfunction>
+ <layoutdefault spacing="6" margin="11"/>
  <resources>
-   <include location="pill_app.qrc"/>
+  <include location="pill_app.qrc"/>
  </resources>
  <connections/>
-</UI>
+ <slots>
+  <slot>add_pill_button_clicked()</slot>
+  <slot>remove_pill_button_clicked()</slot>
+  <slot>remaining_quantity_button_clicked()</slot>
+  <slot>calendar_button_clicked()</slot>
+ </slots>
+</ui>
