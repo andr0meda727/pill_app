@@ -1,5 +1,8 @@
 #include "AddPillDialog.h"
 #include <QMessageBox>
+#include <QFile>
+#include <QTextStream>
+#include "Pill.h"
 
 AddPillDialog::AddPillDialog(QWidget* parent)
     : QDialog(parent)
@@ -37,8 +40,35 @@ void AddPillDialog::addPill()
     int quantity = pill_quantity_spin->value();
     QString dose = pill_dose_edit->text();
 
-    // Perform the logic to add the pill details
-    // For now, just show a message box with the entered details
+    bool dose_is_valid;
+    double dose_value = dose.toDouble(&dose_is_valid);
+
+    if (pill_name.isEmpty() || dose.isEmpty())
+    {
+        QMessageBox::warning(this, "Input Error", "Enter neccessary data");
+        return;
+    }
+
+    if (!dose_is_valid || dose_value <= 0)
+    {
+        QMessageBox::warning(this, "Input Error", "Enter a valid dose");
+        return;
+    }
+
+    if (pill_name.length() > 100)
+    {
+        QMessageBox::warning(this, "Input Error", "Pill name should not exceed 100 characters.");
+        return;
+    }
+
+    Pill pill(pill_name, quantity, dose_value);
+    if (!pill.writeToFile("pills.txt")) 
+    {
+        QMessageBox::critical(this, "Error", "Could not open file for writing.");
+        return;
+    }
+
+
     QMessageBox msgBox;
     msgBox.setText("Pill: " + pill_name + "\nQuantity: " + QString::number(quantity) + "\nDose: " + dose + " mg");
     msgBox.setWindowTitle("Pill added");

@@ -1,0 +1,3 @@
+Pill: conc, Quantity: 1, Dose: 36 mg
+Pill: pix, Quantity: 30, Dose: 18 mg
+Pill: test, Quantity: 1, Dose: 32 mg

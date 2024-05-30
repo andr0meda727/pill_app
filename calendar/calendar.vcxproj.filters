@@ -23,41 +23,21 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <QtRcc Include="pill_app.qrc">
+    <QtMoc Include="calendar.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <ClCompile Include="calendar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <QtMoc Include="calendarPlugin.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <ClCompile Include="calendarPlugin.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <None Include="calendarplugin.json">
       <Filter>Resource Files</Filter>
-    </QtRcc>
-    <QtUic Include="pill_app.ui">
-      <Filter>Form Files</Filter>
-    </QtUic>
-    <QtMoc Include="pill_app.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="pill_app.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="AddPillDialog.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Pill.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <QtMoc Include="AddPillDialog.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="RemovePillDialog.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Pill.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
+    </None>
+
   </ItemGroup>
 </Project>
