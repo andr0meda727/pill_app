@@ -86,7 +86,7 @@ void AddPillDialog::addPill()
     }
 
     Pill pill(start_date, end_date, pill_name, quantity, dose_value);
-    if (!pill.writeToFile("pills.txt"))
+    if (!pill.write_to_file("pills.txt"))
     {
         QMessageBox::critical(this, "Error", "Could not open file for writing.");
         return;

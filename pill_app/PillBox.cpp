@@ -43,6 +43,7 @@ bool PillBox::read_from_file(const QString& filePath)
     return true;
 }
 
+
 QList<Pill> PillBox::get_list_of_pills(const QDate& date) const
 {
     QList<Pill> pills_list;
@@ -52,4 +53,40 @@ QList<Pill> PillBox::get_list_of_pills(const QDate& date) const
         }
     }
     return pills_list;
+}
+
+
+void PillBox::update_pill(const Pill& old_pill, const Pill& new_pill)
+{
+    int index = pills.indexOf(old_pill);
+    if (index != -1) {
+        pills[index] = new_pill;
+    }
+}
+
+
+void PillBox::remove_pill(const Pill& pill)
+{
+    pills.removeOne(pill);
+}
+
+
+bool PillBox::save_to_file(const QString& filePath) const
+{
+    QFile file(filePath);
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+        return false;
+    }
+
+    QTextStream out(&file);
+    foreach(const Pill & pill, pills) {
+        out << pill.get_start_date().toString("yyyy-MM-dd") << ","
+            << pill.get_end_date().toString("yyyy-MM-dd") << ","
+            << pill.get_name() << ","
+            << pill.get_quantity() << ","
+            << pill.get_dose() << "\n";
+    }
+
+    file.close();
+    return true;
 }

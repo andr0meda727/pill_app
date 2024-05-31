@@ -4,6 +4,10 @@
 #include "PillBox.h"
 #include "ui_pill_app.h"
 #include "AddPillDialog.h"
+#include <QPushButton>
+#include <QMap>
+#include <QVBoxLayout>
+#include <QDate>
 
 class pill_app : public QMainWindow
 {
@@ -18,8 +22,15 @@ private slots:
     void remove_pill_button_clicked();
     void remaining_quantity_button_clicked();
     void user_date_changed();
+    void pill_button_clicked();
 
 private:
     Ui::pill_appClass ui;
     PillBox pillBox;
+    QVBoxLayout* pills_layout; 
+    QVBoxLayout* taken_pills_layout;
+    QMap<QDate, QList<Pill>> taken_pills_map;
+
+    void save_state();
+    void load_state();
 };
