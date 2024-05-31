@@ -2,20 +2,19 @@
 #include <QFile>
 #include <QTextStream>
 
-Pill::Pill(const QString& name, int quantity, double dose)
-    : name(name), quantity(quantity), dose(dose) {}
+Pill::Pill(const QDate& start_date, const QDate& end_date, const QString& name, int quantity, double dose)
+    : start_date(start_date), end_date(end_date), name(name), quantity(quantity), dose(dose) {}
 
-bool Pill::writeToFile(const QString& filePath) const 
+bool Pill::writeToFile(const QString& filePath) const
 {
     QFile file(filePath);
-    if (!file.open(QIODevice::Append | QIODevice::Text)) 
+    if (!file.open(QIODevice::Append | QIODevice::Text))
     {
         return false;
     }
 
     QTextStream out(&file);
-    out << "Pill: " << name << ", Quantity: " << quantity << ", Dose: " << dose << " mg\n";
+    out << start_date.toString("yyyy-MM-dd") << "," << end_date.toString("yyyy-MM-dd") << "," << name << "," << quantity << "," << dose << "\n";
     file.close();
     return true;
 }
-

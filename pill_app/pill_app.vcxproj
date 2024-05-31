@@ -95,8 +95,14 @@
     <QtRcc Include="pill_app.qrc" />
     <QtUic Include="pill_app.ui" />
     <QtMoc Include="pill_app.h" />
-    <ClCompile Include="AddPillDialog.cpp" />
+    <ClCompile Include="AddPillDialog.cpp">
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">input</DynamicSource>
+      <QtMocFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(Filename).moc</QtMocFileName>
+      <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Release|x64'">input</DynamicSource>
+      <QtMocFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(Filename).moc</QtMocFileName>
+    </ClCompile>
     <ClCompile Include="Pill.cpp" />
+    <ClCompile Include="PillBox.cpp" />
     <ClCompile Include="pill_app.cpp">
       <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">input</DynamicSource>
       <QtMocFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(Filename).moc</QtMocFileName>
@@ -110,6 +116,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Pill.h" />
+    <ClInclude Include="PillBox.h" />
     <ClInclude Include="RemovePillDialog.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

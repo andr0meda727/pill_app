@@ -40,10 +40,13 @@
     <ClCompile Include="pill_app.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="AddPillDialog.cpp">
+    <ClCompile Include="Pill.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Pill.cpp">
+    <ClCompile Include="PillBox.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AddPillDialog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -57,6 +60,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Pill.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PillBox.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

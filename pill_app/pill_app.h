@@ -1,4 +1,7 @@
+#pragma once
+
 #include <QMainWindow>
+#include "PillBox.h"
 #include "ui_pill_app.h"
 #include "AddPillDialog.h"
 
@@ -18,5 +21,5 @@ private slots:
 
 private:
     Ui::pill_appClass ui;
+    PillBox pillBox;
 };
-

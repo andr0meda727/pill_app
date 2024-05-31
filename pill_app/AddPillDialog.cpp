@@ -19,6 +19,18 @@ AddPillDialog::AddPillDialog(QWidget* parent)
     QLabel* dose_label = new QLabel("Dose (mg):", this);
     pill_dose_edit = new QLineEdit(this);
 
+    QLabel* start_date_label = new QLabel("Start date:", this);
+    pill_start_date_edit = new QDateEdit(this);
+    pill_start_date_edit->setDisplayFormat("dd MMM yyyy");
+    pill_start_date_edit->setDate(QDate::currentDate());
+    pill_start_date_edit->setCalendarPopup(true);
+
+    QLabel* end_date_label = new QLabel("End date:", this);
+    pill_end_date_edit = new QDateEdit(this);
+    pill_end_date_edit->setDisplayFormat("dd MMM yyyy");
+    pill_end_date_edit->setDate(QDate::currentDate());
+    pill_end_date_edit->setCalendarPopup(true);
+
     QPushButton* add_button = new QPushButton("Add Pill", this);
     connect(add_button, &QPushButton::clicked, this, &AddPillDialog::addPill);
 
@@ -28,6 +40,10 @@ AddPillDialog::AddPillDialog(QWidget* parent)
     layout->addWidget(pill_quantity_spin);
     layout->addWidget(dose_label);
     layout->addWidget(pill_dose_edit);
+    layout->addWidget(start_date_label);
+    layout->addWidget(pill_start_date_edit);
+    layout->addWidget(end_date_label);
+    layout->addWidget(pill_end_date_edit);
     layout->addWidget(add_button);
 
     setLayout(layout);
@@ -39,13 +55,15 @@ void AddPillDialog::addPill()
     QString pill_name = pill_name_edit->text();
     int quantity = pill_quantity_spin->value();
     QString dose = pill_dose_edit->text();
+    QDate start_date = pill_start_date_edit->date();
+    QDate end_date = pill_end_date_edit->date();
 
     bool dose_is_valid;
     double dose_value = dose.toDouble(&dose_is_valid);
 
     if (pill_name.isEmpty() || dose.isEmpty())
     {
-        QMessageBox::warning(this, "Input Error", "Enter neccessary data");
+        QMessageBox::warning(this, "Input Error", "Enter necessary data");
         return;
     }
 
@@ -61,16 +79,21 @@ void AddPillDialog::addPill()
         return;
     }
 
-    Pill pill(pill_name, quantity, dose_value);
-    if (!pill.writeToFile("pills.txt")) 
+    if (start_date > end_date)
+    {
+        QMessageBox::warning(this, "Input Error", "Start date must be before end date.");
+        return;
+    }
+
+    Pill pill(start_date, end_date, pill_name, quantity, dose_value);
+    if (!pill.writeToFile("pills.txt"))
     {
         QMessageBox::critical(this, "Error", "Could not open file for writing.");
         return;
     }
 
-
     QMessageBox msgBox;
-    msgBox.setText("Pill: " + pill_name + "\nQuantity: " + QString::number(quantity) + "\nDose: " + dose + " mg");
+    msgBox.setText("Pill: " + pill_name + "\nQuantity: " + QString::number(quantity) + "\nDose: " + dose + " mg\nStart Date: " + start_date.toString("dd MMM yyyy") + "\nEnd Date: " + end_date.toString("dd MMM yyyy"));
     msgBox.setWindowTitle("Pill added");
     msgBox.exec();
 
