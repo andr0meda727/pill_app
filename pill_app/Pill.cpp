@@ -18,3 +18,4 @@ bool Pill::writeToFile(const QString& filePath) const
     file.close();
     return true;
 }
+
