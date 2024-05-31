@@ -1,3 +1,6 @@
 Pill: conc, Quantity: 1, Dose: 36 mg
 Pill: pix, Quantity: 30, Dose: 18 mg
 Pill: test, Quantity: 1, Dose: 32 mg
+Pill: ala, Quantity: 1, Dose: 12 mg
+Pill: s, Quantity: 1, Dose: 1 mg
+Pill: ma, Quantity: 1, Dose: 22 mg
