@@ -13,8 +13,8 @@ public:
 private slots:
     void add_pill_button_clicked();
     void remove_pill_button_clicked();
-    void calendar_button_clicked();
     void remaining_quantity_button_clicked();
+    void user_date_changed();
 
 private:
     Ui::pill_appClass ui;
