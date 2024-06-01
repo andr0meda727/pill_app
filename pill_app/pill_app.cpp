@@ -84,6 +84,29 @@ void pill_app::user_date_changed()
 
     QList<Pill> taken_pills = taken_pills_map.value(date);
 
+    QString buttonStyleSheet = R"(
+        QPushButton {
+            appearance: none;
+            background-color: #FAFBFC;
+            border: 1px solid rgba(27, 31, 35, 0.15);
+            border-radius: 6px;
+            box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0, rgba(255, 255, 255, 0.25) 0 1px 0 inset;
+            box-sizing: border-box;
+            color: #24292E;
+            cursor: pointer;
+            display: inline-block;
+            font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+            font-size: 12px;
+            font-weight: 500;
+            line-height: 20px;
+            list-style: none;
+            padding: 6px 16px;
+            position: relative;
+            transition: background-color 0.2s cubic-bezier(0.3, 0, 0.5, 1);
+            user-select: none;
+        }
+    )";
+
     // Add buttons for pills that are not taken
     foreach(const Pill & pill, pills) {
             QPushButton* pill_button = new QPushButton(QString("Pill: %1, Quantity: %2, Dose: %3")
@@ -96,6 +119,7 @@ void pill_app::user_date_changed()
             pill_button->setProperty("name", pill.get_name());
             pill_button->setProperty("quantity", pill.get_quantity());
             pill_button->setProperty("dose", pill.get_dose());
+            pill_button->setStyleSheet(buttonStyleSheet);
 
             connect(pill_button, &QPushButton::clicked, this, &pill_app::pill_button_clicked);
             pills_layout->addWidget(pill_button);
@@ -115,6 +139,7 @@ void pill_app::user_date_changed()
         taken_pill_button->setProperty("quantity", pill.get_quantity());
         taken_pill_button->setProperty("dose", pill.get_dose());
         connect(taken_pill_button, &QPushButton::clicked, this, &pill_app::taken_pill_button_clicked);
+        taken_pill_button->setStyleSheet(buttonStyleSheet);
 
         taken_pills_layout->addWidget(taken_pill_button);
     }
