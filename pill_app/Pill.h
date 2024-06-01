@@ -15,7 +15,7 @@ public:
     double get_dose() const { return dose; }
     QDate get_start_date() const { return start_date; }
     QDate get_end_date() const { return end_date; }
-    void increment_quantity() { quantity+=1;};
+    void increment_quantity(int received) { quantity+=received;};
 
     bool operator==(const Pill& other) const {
         return start_date == other.start_date && end_date == other.end_date &&

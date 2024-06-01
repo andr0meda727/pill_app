@@ -7,6 +7,19 @@
 
 void PillBox::filling_pills(const Pill& pill)
 {
+    for (Pill& temp_pill : pills) {
+
+        if (pill.get_name() == temp_pill.get_name() && 
+            pill.get_dose() == temp_pill.get_dose() && 
+            pill.get_start_date() == temp_pill.get_start_date() &&
+            pill.get_end_date() == temp_pill.get_end_date()            
+            ) {
+            //increment quantity
+            temp_pill.increment_quantity(pill.get_quantity());
+            return;
+        }
+
+    }
     pills.append(pill);
 }
 
