@@ -11,6 +11,7 @@ public:
     void remove_pill(const Pill& pill);
     void update_pill(const Pill& old_pill, const Pill& new_pill);
     bool save_to_file(const QString& filePath) const;
+    void clear_box();
 
 private:
     QList<Pill> pills;

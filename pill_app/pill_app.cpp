@@ -26,6 +26,19 @@ pill_app::pill_app(QWidget* parent)
     ui.taken_pills_display->setLayout(taken_pills_layout);
 
     load_state();
+    QPixmap pixmap("mario.png");
+
+    int width = 300;  // desired width
+    int height = 400; // desired height
+    QPixmap resizedPixmap = pixmap.scaled(width, height, Qt::KeepAspectRatio);
+    ui.label->setPixmap(resizedPixmap);
+    ui.label->setFixedSize(resizedPixmap.size());
+
+    QPixmap pixmap2("mario2.png");
+
+    QPixmap resizedPixmap2 = pixmap2.scaled(width, height, Qt::KeepAspectRatio);
+    ui.label_2->setPixmap(resizedPixmap2);
+    ui.label_2->setFixedSize(resizedPixmap2.size());
 
     // Load pills from file
     if (!pillBox.read_from_file("pills.txt")) {
@@ -63,14 +76,14 @@ void pill_app::user_date_changed()
         delete item->widget();
         delete item;
     }
-
-
+    pillBox.clear_box();
+    pillBox.read_from_file("pills.txt");
     QList<Pill> pills = pillBox.get_list_of_pills(date);
+
     QList<Pill> taken_pills = taken_pills_map.value(date);
 
     // Add buttons for pills that are not taken
     foreach(const Pill & pill, pills) {
-        if (!taken_pills.contains(pill)) {
             QPushButton* pill_button = new QPushButton(QString("Pill: %1, Quantity: %2, Dose: %3")
                 .arg(pill.get_name())
                 .arg(pill.get_quantity())
@@ -84,12 +97,12 @@ void pill_app::user_date_changed()
 
             connect(pill_button, &QPushButton::clicked, this, &pill_app::pill_button_clicked);
             pills_layout->addWidget(pill_button);
-        }
+        
     }
 
     // Add buttons for taken pills
     foreach(const Pill & pill, taken_pills) {
-        QPushButton* taken_pill_button = new QPushButton(QString("Taken Pill: %1, Dose: %3")
+        QPushButton* taken_pill_button = new QPushButton(QString("Taken Pill: %1, Quantity: %2, Dose: %3")
             .arg(pill.get_name())
             .arg(pill.get_quantity())
             .arg(pill.get_dose()));
@@ -97,8 +110,8 @@ void pill_app::user_date_changed()
         taken_pills_layout->addWidget(taken_pill_button);
     }
 
-    ui.list_of_pills_display->adjustSize();
-    ui.taken_pills_display->adjustSize();
+   /* ui.list_of_pills_display->adjustSize();
+    ui.taken_pills_display->adjustSize();*/
 }
 
 
@@ -116,9 +129,18 @@ void pill_app::pill_button_clicked()
     double dose = button->property("dose").toDouble();
 
     // Create the pill object
-    Pill pill(start_date, end_date, name, quantity, dose);
-
+    // check if it exists already
     QDate date = ui.date_edit->date();
+    bool wasInside = false;
+    Pill pill(start_date, end_date, name, quantity, dose);
+    for (Pill& pill : taken_pills_map[date]) {
+
+        if (pill.get_name() == name) {
+            wasInside = true;
+            pill.increment_quantity();
+        }
+   
+    }
 
     int new_quantity = quantity - 1;
     if (new_quantity > 0) {
@@ -133,7 +155,10 @@ void pill_app::pill_button_clicked()
     }
 
     // Add to taken pills list for the current date
-    taken_pills_map[date].append(pill);
+    if (!wasInside) {
+        pill = Pill(start_date, end_date, name, 1, dose);
+        taken_pills_map[date].append(pill);
+    }
 
     // Remove the button from the layout and delete it
     pills_layout->removeWidget(button);

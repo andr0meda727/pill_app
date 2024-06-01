@@ -45,7 +45,7 @@ bool PillBox::read_from_file(const QString& filePath)
 
 
 QList<Pill> PillBox::get_list_of_pills(const QDate& date) const
-{
+{    
     QList<Pill> pills_list;
     foreach(const Pill & pill, pills) {
         if (date >= pill.get_start_date() && date <= pill.get_end_date()) {
@@ -55,6 +55,13 @@ QList<Pill> PillBox::get_list_of_pills(const QDate& date) const
     return pills_list;
 }
 
+void PillBox::clear_box() {
+
+    foreach(const Pill & pill, pills) {
+        pills.removeOne(pill);
+    }
+
+};
 
 void PillBox::update_pill(const Pill& old_pill, const Pill& new_pill)
 {
