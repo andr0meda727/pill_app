@@ -20,7 +20,7 @@ public:
 private slots:
     void add_pill_button_clicked();
     void remove_pill_button_clicked();
-    void remaining_quantity_button_clicked();
+    void show_remaining_pills();
     void user_date_changed();
     void pill_button_clicked();
 

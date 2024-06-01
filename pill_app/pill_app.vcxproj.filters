@@ -49,20 +49,26 @@
     <ClCompile Include="AddPillDialog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="RemainingPillsDialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="AddPillDialog.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="RemainingPillsDialog.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="RemovePillDialog.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Pill.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="PillBox.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RemovePillDialog.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

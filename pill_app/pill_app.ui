@@ -106,7 +106,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
        </spacer>
       </item>
       <item row="4" column="0">
-       <widget class="QPushButton" name="remaining_quantity_push_button">
+       <widget class="QPushButton" name="show_remaining_pills_push_button">
         <property name="text">
          <string>remaining list</string>
         </property>

@@ -6,6 +6,7 @@
 #include <QPushButton>
 #include <QDebug>
 #include <QVBoxLayout>
+#include "RemainingPillsDialog.h"
 
 pill_app::pill_app(QWidget* parent)
     : QMainWindow(parent)
@@ -16,7 +17,7 @@ pill_app::pill_app(QWidget* parent)
 
     connect(ui.add_pill_push_button, &QPushButton::clicked, this, &pill_app::add_pill_button_clicked);
     connect(ui.remove_pill_push_button, &QPushButton::clicked, this, &pill_app::remove_pill_button_clicked);
-    connect(ui.remaining_quantity_push_button, &QPushButton::clicked, this, &pill_app::remaining_quantity_button_clicked);
+    connect(ui.show_remaining_pills_push_button, &QPushButton::clicked, this, &pill_app::show_remaining_pills);
     connect(ui.date_edit, &QDateEdit::userDateChanged, this, &pill_app::user_date_changed);
 
     pills_layout = new QVBoxLayout();
@@ -171,8 +172,11 @@ void pill_app::remove_pill_button_clicked()
 {}
 
 
-void pill_app::remaining_quantity_button_clicked()
-{}
+void pill_app::show_remaining_pills()
+{
+    RemainingPillsDialog dialog(pillBox, this);
+    dialog.exec();
+}
 
 
 void pill_app::save_state()
