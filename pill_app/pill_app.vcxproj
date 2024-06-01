@@ -93,6 +93,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="RemainingPillsDialog.cpp" />
+    <ClCompile Include="RemovePillDialog.cpp" />
     <QtMoc Include="RemainingPillsDialog.h" />
     <QtRcc Include="pill_app.qrc" />
     <QtUic Include="pill_app.ui" />
@@ -119,7 +120,7 @@
   <ItemGroup>
     <ClInclude Include="Pill.h" />
     <ClInclude Include="PillBox.h" />
-    <ClInclude Include="RemovePillDialog.h" />
+    <QtMoc Include="RemovePillDialog.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

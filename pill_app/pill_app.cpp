@@ -7,6 +7,7 @@
 #include <QDebug>
 #include <QVBoxLayout>
 #include "RemainingPillsDialog.h"
+#include "RemovePillDialog.h"
 
 pill_app::pill_app(QWidget* parent)
     : QMainWindow(parent)
@@ -108,6 +109,13 @@ void pill_app::user_date_changed()
             .arg(pill.get_quantity())
             .arg(pill.get_dose()));
 
+        taken_pill_button->setProperty("start_date", pill.get_start_date());
+        taken_pill_button->setProperty("end_date", pill.get_end_date());
+        taken_pill_button->setProperty("name", pill.get_name());
+        taken_pill_button->setProperty("quantity", pill.get_quantity());
+        taken_pill_button->setProperty("dose", pill.get_dose());
+        connect(taken_pill_button, &QPushButton::clicked, this, &pill_app::taken_pill_button_clicked);
+
         taken_pills_layout->addWidget(taken_pill_button);
     }
 
@@ -115,6 +123,47 @@ void pill_app::user_date_changed()
     ui.taken_pills_display->adjustSize();*/
 }
 
+
+void pill_app::taken_pill_button_clicked()
+{
+    QPushButton* button = qobject_cast<QPushButton*>(sender());
+    if (!button) return;
+
+
+    // Get pill information from button properties
+    QDate start_date = button->property("start_date").toDate();
+    QDate end_date = button->property("end_date").toDate();
+    QString name = button->property("name").toString();
+    int quantity = button->property("quantity").toInt();
+    double dose = button->property("dose").toDouble();
+
+
+    Pill pill(start_date, end_date, name, 1, dose);
+    QDate date = ui.date_edit->date();
+
+    if (quantity == 1) {
+    //remove from taken list
+        taken_pills_map[date].removeOne(pill);
+    }else{
+    //decrement quantity
+        for (Pill& pill : taken_pills_map[date]) {
+
+            if (pill.get_name() == name) {
+                pill.increment_quantity(-1);
+                break;
+            }
+
+        }
+    }
+    if (!pill.write_to_file("pills.txt"))
+    {
+        QMessageBox::critical(this, "Error", "Could not open file for writing.");
+        return;
+    }
+   
+    user_date_changed();  // refresh
+
+}
 
 void pill_app::pill_button_clicked()
 {
@@ -138,7 +187,8 @@ void pill_app::pill_button_clicked()
 
         if (pill.get_name() == name) {
             wasInside = true;
-            pill.increment_quantity();
+            pill.increment_quantity(1);
+            break;
         }
    
     }
@@ -169,7 +219,12 @@ void pill_app::pill_button_clicked()
 }
 
 void pill_app::remove_pill_button_clicked()
-{}
+{
+    RemovePillDialog dialog(pillBox, this);
+    dialog.exec();
+    user_date_changed();  // refresh
+
+}
 
 
 void pill_app::show_remaining_pills()

@@ -23,6 +23,7 @@ private slots:
     void show_remaining_pills();
     void user_date_changed();
     void pill_button_clicked();
+    void taken_pill_button_clicked();
 
 private:
     Ui::pill_appClass ui;
