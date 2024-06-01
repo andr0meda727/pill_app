@@ -10,6 +10,11 @@ void PillBox::filling_pills(const Pill& pill)
     pills.append(pill);
 }
 
+QList<Pill> PillBox::get_all_pills() const
+{
+    return pills;
+}
+
 bool PillBox::read_from_file(const QString& filePath)
 {
     QFile file(filePath);
@@ -18,6 +23,7 @@ bool PillBox::read_from_file(const QString& filePath)
         return false;
     }
 
+    pills.clear(); // Clear the current list of pills before reading from the file
     QTextStream in(&file);
     while (!in.atEnd())
     {
@@ -43,9 +49,8 @@ bool PillBox::read_from_file(const QString& filePath)
     return true;
 }
 
-
 QList<Pill> PillBox::get_list_of_pills(const QDate& date) const
-{    
+{
     QList<Pill> pills_list;
     foreach(const Pill & pill, pills) {
         if (date >= pill.get_start_date() && date <= pill.get_end_date()) {
@@ -56,12 +61,8 @@ QList<Pill> PillBox::get_list_of_pills(const QDate& date) const
 }
 
 void PillBox::clear_box() {
-
-    foreach(const Pill & pill, pills) {
-        pills.removeOne(pill);
-    }
-
-};
+    pills.clear();
+}
 
 void PillBox::update_pill(const Pill& old_pill, const Pill& new_pill)
 {
@@ -71,12 +72,10 @@ void PillBox::update_pill(const Pill& old_pill, const Pill& new_pill)
     }
 }
 
-
 void PillBox::remove_pill(const Pill& pill)
 {
     pills.removeOne(pill);
 }
-
 
 bool PillBox::save_to_file(const QString& filePath) const
 {

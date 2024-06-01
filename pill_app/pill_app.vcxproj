@@ -92,6 +92,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="RemainingPillsDialog.cpp" />
+    <QtMoc Include="RemainingPillsDialog.h" />
     <QtRcc Include="pill_app.qrc" />
     <QtUic Include="pill_app.ui" />
     <QtMoc Include="pill_app.h" />

@@ -1,3 +1,5 @@
+#pragma once
+
 #include <QDialog>
 #include <QVBoxLayout>
 #include <QLabel>
